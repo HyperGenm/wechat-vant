@@ -1,0 +1,8 @@
+<van-notice-bar left-icon="volume-o" scrollable="{{ false }}" text="demo页面,演示部分功能示例，可删除" />
+<van-cell-group>
+  <block wx:for="{{cellList}}" wx:key="type">
+    <!-- data-type:  data-开头可以自定义key和value  通过绑定的点击事件内置的event参数中可以获取   -->
+    <van-cell title="{{item.title}}" value="{{item.value}}" label="{{item.label}}" data-type="{{item.type}}"
+      bindtap="handleBindTap" />
+  </block>
+</van-cell-group>

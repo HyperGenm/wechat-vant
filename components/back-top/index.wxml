@@ -1,0 +1,5 @@
+<van-transition show="{{ show }}" duration="666">
+  <view class="box" style="{{'background-color:' + backgroundColor}}" bindtap="handleClick">
+    <van-icon name="{{iconName}}" size="30px" color="#fff" />
+  </view>
+</van-transition>

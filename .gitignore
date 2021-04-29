@@ -1,0 +1,9 @@
+node_modules
+miniprogram_npm
+.DS_Store
+dist
+dist-ssr
+*.local
+/package-lock.json
+
+/project.config.json
