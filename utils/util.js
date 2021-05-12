@@ -20,7 +20,7 @@ const request = ({
   //请求的参数
   data = {},
   //content-type 默认为 application/json
-  contentType = '',
+  contentType = 'application/x-www-form-urlencoded; charset=UTF-8',
   //超时时间，单位为毫秒
   timeout = 20000,
   //HTTP 请求方法
