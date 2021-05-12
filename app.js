@@ -3,10 +3,6 @@ const {
   config
 } = require('./utils/config');
 
-//项目运行环境运行环境
-//dev test prod
-const ENV_MODE = 'dev';
-
 // app.js
 App({
   /**
@@ -14,7 +10,7 @@ App({
    */
   onLaunch() {
     //根据运行环境设置全局常量
-    this['globalData']['config'] = config[ENV_MODE];
+    this['globalData']['config'] = config;
     //监听版本更新
     this.getUpdateManager();
   },
