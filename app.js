@@ -17,6 +17,8 @@ App({
   globalData: {
     //存放全局配置
     config: {},
+    //请求锁,禁止操作
+    requestLock: {}
   },
   /**
    * 小程序版本更新

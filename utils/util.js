@@ -5,6 +5,8 @@ let App = getApp();
  * 网络请求
  */
 const request = ({
+  //防止过快点击
+  isLock = null,
   //多少ms之后显示加载中动画
   showLoadingDelay = 666,
   //加载中显示的文字
@@ -25,7 +27,7 @@ const request = ({
   timeout = 20000,
   //HTTP 请求方法
   method = 'get',
-  //返回的数据格式	
+  //返回的数据格式
   dataType = 'json',
   //成功回调
   success = () => {
@@ -40,6 +42,23 @@ const request = ({
 
   },
 } = {}) => {
+  //锁 key
+  let lockKey = null;
+  //没设置默认非get请求开启锁
+  if (null == isLock && 'get' !== method.toLowerCase()) {
+    isLock = true;
+  }
+  //如果有锁
+  if (isLock) {
+    //创建key
+    lockKey = url + '_' + method + '_' + JSON.stringify(data);
+    //如果有锁
+    if (App.globalData.requestLock[lockKey]) {
+      return;
+    }
+    //开启锁
+    App.globalData.requestLock[lockKey] = true;
+  }
   ////多少ms之后显示加载中动画
   let loadingTimer = setTimeout(() => {
     wx.showLoading({
@@ -123,6 +142,10 @@ const request = ({
     },
     //成功失败都触发
     complete(res) {
+      //如果有锁
+      if (isLock) {
+        delete App.globalData.requestLock[lockKey];
+      }
       //如果是下拉刷新
       if (isPullDownRefresh) {
         //停止下拉刷新
@@ -212,7 +235,7 @@ const showToastNone = (title = '提示', duration = 3000) => {
  * 显示弹出框
  */
 const showModalAlert = ({
-  //提示的标题	
+  //提示的标题
   title = '',
   //提示的内容，editable 为 true 时，会输入框默认文本
   content = '',
@@ -262,7 +285,7 @@ const showModalAlert = ({
  * 显示对话框
  */
 const showModalConfirm = ({
-  //提示的标题	
+  //提示的标题
   title = '',
   //提示的内容，editable 为 true 时，会输入框默认文本
   content = '',
@@ -319,11 +342,11 @@ const showModalConfirm = ({
  * 显示输入框
  */
 const showModalPrompt = ({
-  //提示的标题	
+  //提示的标题
   title = '',
   //提示的内容，editable 为 true 时，会输入框默认文本
   content = '',
-  //输入框提示文本	
+  //输入框提示文本
   placeholderText = '',
   //确认按钮文字
   confirmText = '确认',
