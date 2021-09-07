@@ -1,7 +1,7 @@
 // pages/demo/index.js
 
 //引入封装的方法
-const bwUtils = require('../../utils/util')
+const weiUtils = require('../../utils/util')
 
 Page({
 
@@ -90,7 +90,7 @@ Page({
     break;
     //获取免登code
     case 'login': {
-      bwUtils.login({
+      weiUtils.login({
         success(code) {
           console.log(`免登code: ${code}`)
         }
@@ -99,12 +99,12 @@ Page({
     break;
     //消息提示
     case 'showToastNone': {
-      bwUtils.showToastNone('hello world')
+      weiUtils.showToastNone('hello world')
     }
     break;
     //alert
     case 'alert': {
-      bwUtils.showModalAlert({
+      weiUtils.showModalAlert({
         title: '标题',
         content: '内容'
       })
@@ -112,7 +112,7 @@ Page({
     break;
     //confirm
     case 'confirm': {
-      bwUtils.showModalConfirm({
+      weiUtils.showModalConfirm({
         title: '标题',
         content: '内容',
         confirm() {
@@ -123,7 +123,7 @@ Page({
     break;
     //prompt
     case 'prompt': {
-      bwUtils.showModalPrompt({
+      weiUtils.showModalPrompt({
         title: '标题',
         content: '内容',
         placeholderText: '请输入',
@@ -142,19 +142,19 @@ Page({
     break;
     //uuid
     case 'uuid': {
-      console.log(bwUtils.createUUID())
+      console.log(weiUtils.createUUID())
     }
     break;
     //uuid
     case 'timestampFormat': {
       let timestamp = new Date().getTime();
-      console.log(bwUtils.timestampFormat(timestamp))
-      console.log(bwUtils.timestampFormat(timestamp, 'yyyy-MM-dd HH:mm:ss'))
+      console.log(weiUtils.timestampFormat(timestamp))
+      console.log(weiUtils.timestampFormat(timestamp, 'yyyy-MM-dd HH:mm:ss'))
     }
     break;
     //授权
     case 'scope': {
-      bwUtils.scope({
+      weiUtils.scope({
         scope: 'scope.werun',
         success() {
           wx.getWeRunData({
@@ -173,8 +173,7 @@ Page({
   },
   //获取用户信息
   handleUserInfo() {
-    bwUtils.getUserProfile({
-      desc: '声明获取用户个人信息后的',
+    weiUtils.getUserProfile({
       success(userInfo) {
         console.log(userInfo)
       }
@@ -182,7 +181,7 @@ Page({
   },
   //模拟发送网络请求  
   handleReuqest() {
-    bwUtils.request({
+    weiUtils.request({
       url: '/api/test/getPageList',
       data: {
         pageNum: 1,

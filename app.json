@@ -8,14 +8,13 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "山东邦维科技有限公司",
+    "navigationBarTitleText": "WeiziPlus",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
     "color": "#bfbfbf",
     "selectedColor": "#1296db",
-    "list": [
-      {
+    "list": [{
         "pagePath": "pages/home/index",
         "text": "首页",
         "iconPath": "image/icon/home_off.png",

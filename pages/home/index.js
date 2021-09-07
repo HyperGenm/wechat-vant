@@ -5,13 +5,13 @@ Page({
    */
   data: {
     swiperList: [{
-        img: 'https://www.bondway.net/img/jb1.jpg'
+        img: 'https://img.yzcdn.cn/vant/apple-1.jpg'
       },
       {
-        img: 'https://www.bondway.net/img/jb2.jpg'
+        img: 'https://img.yzcdn.cn/vant/apple-2.jpg'
       },
       {
-        img: 'https://www.bondway.net/img/jb3.jpg'
+        img: 'https://img.yzcdn.cn/vant/apple-3.jpg'
       }
     ]
   },

@@ -87,13 +87,11 @@ const request = ({
       if (200 !== res['statusCode']) {
         //请求出错
         console.warn(`${url}:请求失败,statusCode:${res['statusCode']},详情:`, res);
-        setTimeout(() => {
-          wx.showModal({
-            title: '系统错误',
-            content: (null != res['data'] ? JSON.stringify(res['data']) : `url:${url} \r\n statusCode:${res['statusCode']} `),
-            showCancel: false,
-          })
-        }, 100);
+        wx.showModal({
+          title: '系统错误',
+          content: (null != res['data'] ? JSON.stringify(res['data']) : `url:${url} \r\n statusCode:${res['statusCode']} `),
+          showCancel: false,
+        })
         return;
       }
       //如果返回所有响应
@@ -111,13 +109,11 @@ const request = ({
         console.warn(`网络请求失败 url:${url}`);
         res['data']['url'] = url;
         console.table(res['data']);
-        setTimeout(() => {
-          wx.showToast({
-            title: res['data']['msg'],
-            icon: 'none',
-            duration: showToastDuration
-          });
-        }, 100);
+        wx.showToast({
+          title: res['data']['msg'],
+          icon: 'none',
+          duration: showToastDuration
+        });
         return;
       }
       try {
@@ -130,13 +126,11 @@ const request = ({
     fail(error) {
       //请求出错
       console.warn(`${url}:请求失败,详情:`, error);
-      setTimeout(() => {
-        wx.showModal({
-          title: '系统错误',
-          content: error['errMsg'],
-          showCancel: false,
-        })
-      }, 100);
+      wx.showModal({
+        title: '系统错误',
+        content: error['errMsg'],
+        showCancel: false,
+      })
       //对外抛出
       fail(error);
     },
@@ -182,25 +176,21 @@ const login = ({
         }
         return;
       }
-      setTimeout(() => {
-        wx.showModal({
-          title: '获取code失败',
-          content: res['errMsg'],
-          showCancel: false,
-        })
-      }, 100);
+      wx.showModal({
+        title: '获取code失败',
+        content: res['errMsg'],
+        showCancel: false,
+      })
       fail({
         res
       });
     },
     error(error) {
-      setTimeout(() => {
-        wx.showModal({
-          title: '获取code失败',
-          content: JSON.stringify(error),
-          showCancel: false,
-        })
-      }, 100);
+      wx.showModal({
+        title: '获取code失败',
+        content: JSON.stringify(error),
+        showCancel: false,
+      })
       fail({
         error
       });
@@ -222,13 +212,11 @@ const isBlank = (value) => {
  * 展示提示
  */
 const showToastNone = (title = '提示', duration = 3000) => {
-  setTimeout(() => {
-    wx.showToast({
-      title,
-      icon: 'none',
-      duration
-    });
-  }, 100);
+  wx.showToast({
+    title,
+    icon: 'none',
+    duration
+  });
 }
 
 /**
@@ -248,37 +236,35 @@ const showModalAlert = ({
 
   }
 } = {}) => {
-  setTimeout(() => {
-    wx.showModal({
-      title,
-      content,
-      confirmText,
-      confirmColor,
-      editable: false,
-      showCancel: false,
-      success(res) {
-        if (!res.confirm) {
-          return;
-        }
-        try {
-          confirm();
-        } catch (e) {
-          console.error(e);
-        }
-      },
-      fail(error) {
-        console.warn(`提示框弹出失败,详情:`, error);
-        setTimeout(() => {
-          wx.showModal({
-            title: '对话框弹出失败',
-            content: JSON.stringify(error),
-            showCancel: false,
-            editable: false,
-          });
-        }, 100);
+  wx.showModal({
+    title,
+    content,
+    confirmText,
+    confirmColor,
+    editable: false,
+    showCancel: false,
+    success(res) {
+      if (!res.confirm) {
+        return;
       }
-    });
-  }, 100);
+      try {
+        confirm();
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    fail(error) {
+      console.warn(`提示框弹出失败,详情:`, error);
+      setTimeout(() => {
+        wx.showModal({
+          title: '对话框弹出失败',
+          content: JSON.stringify(error),
+          showCancel: false,
+          editable: false,
+        });
+      }, 100);
+    }
+  });
 }
 
 /**
@@ -306,36 +292,34 @@ const showModalConfirm = ({
 
   }
 } = {}) => {
-  setTimeout(() => {
-    wx.showModal({
-      title,
-      content,
-      confirmText,
-      confirmColor,
-      cancelText,
-      cancelColor,
-      showCancel: true,
-      editable: false,
-      success(res) {
-        try {
-          res.confirm ? confirm() : cancel();
-        } catch (e) {
-          console.error(e);
-        }
-      },
-      fail(error) {
-        console.warn(`对话框弹出失败,详情:`, error);
-        setTimeout(() => {
-          wx.showModal({
-            title: '对话框弹出失败',
-            content: JSON.stringify(error),
-            showCancel: false,
-            editable: false,
-          });
-        }, 100);
+  wx.showModal({
+    title,
+    content,
+    confirmText,
+    confirmColor,
+    cancelText,
+    cancelColor,
+    showCancel: true,
+    editable: false,
+    success(res) {
+      try {
+        res.confirm ? confirm() : cancel();
+      } catch (e) {
+        console.error(e);
       }
-    });
-  }, 100);
+    },
+    fail(error) {
+      console.warn(`对话框弹出失败,详情:`, error);
+      setTimeout(() => {
+        wx.showModal({
+          title: '对话框弹出失败',
+          content: JSON.stringify(error),
+          showCancel: false,
+          editable: false,
+        });
+      }, 100);
+    }
+  });
 }
 
 /**
@@ -377,38 +361,37 @@ const showModalPrompt = ({
     }, 100);
     return;
   }
-  setTimeout(() => {
-    wx.showModal({
-      title,
-      content,
-      placeholderText,
-      confirmText,
-      confirmColor,
-      cancelText,
-      cancelColor,
-      showCancel: true,
-      editable: true,
-      success(res) {
-        try {
-          res.confirm ? confirm(res['content']) : cancel();
-        } catch (e) {
-          console.error(e);
-        }
-      },
-      fail(error) {
-        console.warn(`输入框弹出失败,详情:`, error);
-        setTimeout(() => {
-          wx.showModal({
-            title: '输入框弹出失败',
-            content: JSON.stringify(error),
-            showCancel: false,
-            editable: false,
-          });
-        }, 100);
+  wx.showModal({
+    title,
+    content,
+    placeholderText,
+    confirmText,
+    confirmColor,
+    cancelText,
+    cancelColor,
+    showCancel: true,
+    editable: true,
+    success(res) {
+      try {
+        res.confirm ? confirm(res['content']) : cancel();
+      } catch (e) {
+        console.error(e);
       }
-    });
-  }, 100);
+    },
+    fail(error) {
+      console.warn(`输入框弹出失败,详情:`, error);
+      setTimeout(() => {
+        wx.showModal({
+          title: '输入框弹出失败',
+          content: JSON.stringify(error),
+          showCancel: false,
+          editable: false,
+        });
+      }, 100);
+    }
+  });
 }
+
 
 /**
  * 获取用户信息
@@ -417,7 +400,7 @@ const getUserProfile = ({
   //显示用户信息的语言
   lang = 'en',
   //声明获取用户个人信息后的用途，不超过30个字符
-  desc = '',
+  desc = '获取你的昵称、头像、地区及性别',
   //成功回调
   success = () => {
 
@@ -429,21 +412,18 @@ const getUserProfile = ({
   //失败的描述
   faildesc = '拒绝授权，您将无法使用更多专属功能。',
 } = {}) => {
-  wx.getUserProfile({
-    lang,
-    desc,
+  wx.showModal({
+    title: '温馨提示',
+    content: '亲，授权微信登录后才能正常使用小程序功能',
     success(res) {
-      console.warn('用户信息授权失败,详情:', res);
-      //如果授权失败
-      if ("getUserProfile:ok" !== res['errMsg']) {
-        setTimeout(() => {
-          wx.showModal({
-            title: '授权失败',
-            content: faildesc,
-            showCancel: false,
-            editable: false,
-          });
-        }, 100);
+      //如果用户点击了取消按钮
+      if (!res.confirm) {
+        wx.showModal({
+          title: '授权失败',
+          content: faildesc,
+          showCancel: false,
+          editable: false,
+        });
         try {
           fail();
         } catch (e) {
@@ -451,22 +431,56 @@ const getUserProfile = ({
         }
         return;
       }
-      try {
-        success(res['userInfo']);
-      } catch (e) {
-        console.error(e);
-      }
+      wx.getUserProfile({
+        lang,
+        desc,
+        success(res) {
+          //如果授权失败
+          if ("getUserProfile:ok" !== res['errMsg']) {
+            console.warn('用户信息授权失败,详情:', res);
+            wx.showModal({
+              title: '授权失败',
+              content: faildesc,
+              showCancel: false,
+              editable: false,
+            });
+            try {
+              fail();
+            } catch (e) {
+              console.error(e);
+            }
+            return;
+          }
+          try {
+            success(res['userInfo']);
+          } catch (e) {
+            console.error(e);
+          }
+        },
+        fail(error) {
+          console.warn('用户信息授权失败,详情:', error);
+          wx.showModal({
+            title: '授权失败',
+            content: faildesc,
+            showCancel: false,
+            editable: false,
+          });
+          try {
+            fail();
+          } catch (e) {
+            console.error(e);
+          }
+        }
+      });
     },
     fail(error) {
-      console.warn('用户信息授权失败,详情:', error);
-      setTimeout(() => {
-        wx.showModal({
-          title: '授权失败',
-          content: faildesc,
-          showCancel: false,
-          editable: false,
-        });
-      }, 100);
+      console.warn('用户信息授权弹出对话框失败,详情:', error);
+      wx.showModal({
+        title: '授权失败',
+        content: `系统错误，请重试`,
+        showCancel: false,
+        editable: false,
+      });
       try {
         fail();
       } catch (e) {
@@ -650,6 +664,27 @@ const scope = ({
   });
 }
 
+/**
+ * 校验身份证
+ * @param value
+ * @returns {boolean}
+ */
+const isIdNumber = (value) => {
+  let reg = /^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
+  if (!reg.test(value)) {
+    return false;
+  }
+  let weightingFactor = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
+  let num = 0;
+  for (let i = 0; i < value.length - 1; i++) {
+    num += parseInt(value.substring(i, i + 1)) * weightingFactor[i];
+  }
+  let remainder = num % 11;
+  let remainderArr = ["1", "0", "X", "9", "8", "7", "6", "5", "4", "3", "2"];
+  let last = '' + value.substring(value.length - 1, value.length);
+  return remainderArr[remainder] === last;
+}
+
 module.exports = {
   request,
   login,
@@ -665,4 +700,5 @@ module.exports = {
   timestampFormat,
   getNowDate,
   scope,
+  isIdNumber,
 }

@@ -1,15 +1,13 @@
-<view style="text-indent:2em;">tips：如果只需要获取openid，可将当前页面内容删掉，js里面getPhoneNumber方法删掉,wxss里面内容删掉，直接在onLoad里面使用获取到的code即可
-</view>
-<view style="margin-top:30rpx;"></view>
-<view style="text-indent:2em;">tips：如果需要获取手机号码，可删除js里面的onLoad方法</view>
-
 <view class="box">
     <view class="login">
         <view class="avatar">
             <open-data type="userAvatarUrl"></open-data>
         </view>
         <view class="btn">
-            <button open-type="getPhoneNumber" type="primary" bindgetphonenumber="getPhoneNumber">登录</button>
+            <button type="primary" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">获取手机号码</button>
+        </view>
+        <view class="btn">
+            <button type="primary" bindtap="getUserInfo">获取头像昵称</button>
         </view>
     </view>
 </view>
